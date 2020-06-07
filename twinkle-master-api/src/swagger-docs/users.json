@@ -1,0 +1,289 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "user",
+        "description": "This endpoint fetches list of user records based on different search criteria\n\n* Returns top 100 records. (This is default endpoint) [Tryit](/api/v1/users)\n* Returns records by user id.[Tryit](/api/v1/users/1)\n* Restrict the records based on the filter query string parameter. Filtered queries restrict the rows that gets included in the result. Each row in the result is checked against the filter.If the filter matches, the row is retained otherwise ignored.[Tryit](/api/v1/users?$filter=startswith(firstname,john))\n\n**Filter options:**\n\n| Filter | Description | Example |\n| ------- | -------- | -------- |\n| startswith   | The record will be considered if begining the field starts with the given value.    |  $filter=startswith(firstname, ‘john’)   |\n| endswith   | The record will be considered if ending the field starts with the given value.    |  $filter=endswith(lastname, ‘john’)   |\n| contains   | The record will be considered if the field contains the given value.    |  $filter=contains(email, ‘hay’)   |\n",
+        "version": "1.0"
+    },
+    "produces": [
+        "application/json"
+    ],    
+    "host": "",
+    "basePath": "/api",
+    "schemes": ["http"],
+    "paths": {
+        "/users": {
+            "get": {
+                "summary": "Fetch list of users",
+                "description": "Fetches list of user records based on different search criteria",
+                "parameters": [{  
+                  "name":"email",
+                  "in":"query",
+                  "required":false,
+                  "type":"string"
+               },
+               {  
+                  "name":"role",
+                  "in":"query",
+                  "required":false,
+                  "type":"string"
+               }],
+                "responses": {
+                    "200": {
+                        "description": "An array of users objects",
+                        "schema": {
+                            "$ref": "#/definitions/user"
+                        }
+                    },
+                    "400": {
+                        "description": "The server was unable to process the request sent by the client due to invalid syntax."
+                    },
+                    "404": {
+                        "description": "Returns 404 when no records available."
+                    },
+                    "500": {
+                        "description": "Something has gone wrong on the server, but the server could not be more specific on what the exact problem is."
+                    }
+                }
+            }
+        },
+        "/users/profile/{globalUserID}": {
+            "get": {
+                "summary": "Fetch Particular User profile",
+                "description": "API to fetch Particular User profile",
+                "parameters": [{
+                    "name": "globalUserID",
+                    "in": "path",
+                    "required": true,
+                    "type": "string"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Success Message",
+                        "schema": {
+                            "$ref": "#/definitions/user"
+                        }
+                    },
+                    "400": {
+                        "description": "The server was unable to process the request sent by the client due to invalid syntax."
+                    },
+                    "404": {
+                        "description": "Returns 404 when no records available."
+                    },
+                    "500": {
+                        "description": "Something has gone wrong on the server, but the server could not be more specific on what the exact problem is."
+                    }
+                }
+            }
+        },
+        "/users/mode/{globalUserID}": {
+            "get": {
+                "summary": "Fetch User mode ",
+                "description": "API to fetch User Mode is online/offline",
+                "parameters": [{
+                    "name": "globalUserID",
+                    "in": "path",
+                    "required": true,
+                    "type": "string"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Success Message",
+                        "schema": {
+                            "$ref": "#/definitions/userMode"
+                        }
+                    },
+                    "400": {
+                        "description": "The server was unable to process the request sent by the client due to invalid syntax."
+                    },
+                    "404": {
+                        "description": "Returns 404 when no records available."
+                    },
+                    "500": {
+                        "description": "Something has gone wrong on the server, but the server could not be more specific on what the exact problem is."
+                    }
+                }
+            },
+            "put": {
+                "summary": "Change Particular User Mode status",
+                "description": "API to change Particular User Mode status",
+                "parameters": [{
+                    "name": "body",
+                    "in": "body",
+                    "required": false,
+                    "schema": {
+                        "$ref": "#/definitions/updateUserMode"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Success Message",
+                        "schema": {
+                            "$ref": "#/definitions/user"
+                        }
+                    },
+                    "400": {
+                        "description": "The server was unable to process the request sent by the client due to invalid syntax."
+                    },
+                    "500": {
+                        "description": "Something has gone wrong on the server, but the server could not be more specific on what the exact problem is."
+                    }
+                }
+            }
+        },
+        "/users/image/{globalUserID}": {
+            "get": {
+                "summary": "Fetch Particular User Image",
+                "description": "API to fetch Particular User Image",
+                "parameters": [{
+                    "name": "globalUserID",
+                    "in": "path",
+                    "required": true,
+                    "type": "string"
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Success Message",
+                        "schema": {
+                            "$ref": "#/definitions/user"
+                        }
+                    },
+                    "400": {
+                        "description": "The server was unable to process the request sent by the client due to invalid syntax."
+                    },
+                    "404": {
+                        "description": "Returns 404 when no records available."
+                    },
+                    "500": {
+                        "description": "Something has gone wrong on the server, but the server could not be more specific on what the exact problem is."
+                    }
+                }
+            }
+        },
+        "/addcontributors": {
+            "post": {
+                "summary": "Add contributors",
+                "description": "API to Add contributors",
+                "parameters": [{
+                    "name": "body",
+                    "in": "body",
+                    "required": false,
+                    "schema": {
+                        "$ref": "#/definitions/contributor"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Success Message",
+                        "schema": {
+                            "$ref": "#/definitions/user"
+                        }
+                    },
+                    "400": {
+                        "description": "The server was unable to process the request sent by the client due to invalid syntax."
+                    },
+                    "500": {
+                        "description": "Something has gone wrong on the server, but the server could not be more specific on what the exact problem is."
+                    }
+                }
+            }
+        },
+        "/removecontributors": {
+            "put": {
+                "summary": "Remove Particular contributors",
+                "description": "API to Remove Particular contributors",
+                "parameters": [{
+                    "name": "body",
+                    "in": "body",
+                    "required": false,
+                    "schema": {
+                        "$ref": "#/definitions/removeContributor"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "Success Message",
+                        "schema": {
+                            "$ref": "#/definitions/user"
+                        }
+                    },
+                    "400": {
+                        "description": "The server was unable to process the request sent by the client due to invalid syntax."
+                    },
+                    "500": {
+                        "description": "Something has gone wrong on the server, but the server could not be more specific on what the exact problem is."
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "user": {
+            "type": "object",
+            "properties": {
+                "globalUserID": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "PHXInitials": {
+                    "type": "string"
+                }
+            }
+        },
+        "userMode": {
+            "type": "object",
+            "properties": {
+                "globalUserID": {
+                    "type": "string"
+                },
+                "onLineStatus": {
+                    "type": "boolean"
+                },
+                "isOfflineUser": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "updateUserMode": {
+            "type": "object",
+            "properties": {
+                "onLineStatus": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "contributor": {
+            "type": "object",
+            "properties": {
+                "materialId": {
+                    "type": "number"
+                },
+                "materialGlobalUserID": {
+                    "type": "string"
+                },
+                "userGlobalUserIDs": {
+                    "type": "array"
+                },
+                "role": {
+                    "type": "string"
+                }
+            }
+        },
+        "removeContributor": {
+            "type": "object",
+            "properties": {
+                "materialId": {
+                    "type": "number"
+                },
+                "materialGlobalUserID": {
+                    "type": "string"
+                },
+                "userGlobalUserIDs": {
+                    "type": "array"
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,80 @@
+{
+    "Config": {
+        "Port": 20200,
+        "DBConnections": {
+            "default": {
+                "user": "facpuser",
+                "password": "P@ssword123",
+                "host": "facpdev.cwm3ubatqbgi.us-east-1.rds.amazonaws.com",
+                "database": "FACP_NEW",
+                "requestTimeout": 300000,
+                "dbType": "mysql"
+            }
+        },
+        "OktaConfig": {
+            "url": "http://iff.okta.com/oauth2"
+        },
+        "AppSettings": {
+            "WhilelistURL": [
+                "https://facp.iff.com",
+                "http://localhost:20200"
+            ],
+            "defaultTotalRecords": 100,
+            "baseRoute": "/api",
+            "exclude": [
+                "/image",
+                "/info",
+                "/users"
+            ]
+        },
+        "AppConfig": {
+            "name": "NGX Seed",
+            "version": "1.0.0"
+        },
+        "MDR": {
+            "product": {
+                "url": "https://ion-qas.iff.com/api/v1/products/"
+            },
+            "user": {
+                "url": "https://ion-qas.iff.com/api/v1/users/",
+                "default": "cll2031_E"
+            },
+            "costbook": {
+                "url": "https://ion.iff.com/api/v1/products/costbooks?appname=facp"
+            },
+            "currency": {
+                "url": "https://ion-qas.iff.com/api/v1/corp/currencies?active=true"
+            },
+            "currencyConversion" : {
+                "url": "https://ion-qas.iff.com/api/v1/corp/currencyrates/conversionrates?"
+            },
+            "corporateBom": {
+                "url": "http://sappo1.iff.com:50000/XISOAPAdapter/MessageServlet?senderParty=&senderService=Phoenix&receiverParty=&receiverService=&interface=Formula_Out&interfaceNamespace=http%3A%2F%2Fiff.com%2FPhoenix%2Fbom",
+                "soapAction": "http://tempuri.org/ICorporateBomService/GetCorporateFormula",
+                "userName": "PIAPPLPO1",
+                "password": "passw0rd"
+            },
+            "facilityCode": {
+                "url": "https://ion.iff.com/api/v1/corp/facilities?active=true"
+            },
+            "globalSampling": {
+                "url": "http://sappo1.iff.com:50000/RESTAdapter/api/v1/CWBMaterial",
+                "userName": "PIAPPLPO1",
+                "password": "passw0rd"
+            }
+        },
+        "ElasticSearch": {
+            "ingredient": "http://10.35.8.136:30301/api/v1/search/products"
+        },
+        "ElasticSearchResultCount": {
+            "ingredient": "http://10.35.8.136:30301/api/v1/search/products?fetchonlycount=true"
+        },
+        "Puma": {
+            "userRelatedDetails": "https://dev1-puma-api.iff.com/fragranceprojects/userRelatedDetails?userId="
+        },
+        "ExcelExport": {
+            "url": "https://facp-qas.iff.com/app-api/export/"
+        }
+    }
+    
+}
