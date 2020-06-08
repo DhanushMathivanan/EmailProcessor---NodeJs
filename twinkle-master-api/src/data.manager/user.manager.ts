@@ -23,7 +23,7 @@ export class UserManager {
         return new SqlManager().Get(query, values);
     }
 
-    public async sendEmail(options) {
+    public async sendEmail(options , filePath) {
 
         let transporter = nodemailer.createTransport({
             service: 'gmail',
@@ -41,11 +41,17 @@ export class UserManager {
 
         let mailOptions = {
             from: 'mdiamdhanush18@gmail.com',
-            to: 'arvind2analytics@gmail.com',
+            to: 'mdiamdhanush18@gmail.com',
             subject: 'Gmail Api Config',
-            // text: `Hello Arvind - Welcome to Gmail Api 
-            // This is a custom automated Message through node js`,
-            html: options
+            text: ` Hi Dhanush,
+            Please find the gmail mail Subject datas processed and attached below`,
+            // html: options,
+            attachments: [
+                {   // file on disk as an attachment
+                filename: 'Sample.txt',
+                path: filePath // stream this file
+                }
+            ]
         };
 
 
@@ -62,6 +68,8 @@ export class UserManager {
     public async readEmail(options) {
 
         let content = '';
+        let fileName;
+        let resultScript;
         var config = {
             imap: {
                 user: 'mdiamdhanush18@gmail.com',
@@ -138,8 +146,8 @@ export class UserManager {
                         if ((filecount === (500 * index)) || (filecount === frameResult.length)) {
                             console.log('Number of SQL File created - ', index, 'Total Processed Records - ', frameResult.length);
 
-                            const fileName = path.join(process.cwd(), `${index}_Mail_Parser.txt`);
-                            let resultScript = JSON.parse(JSON.stringify(str));
+                            fileName = path.join(process.cwd(), `${index}_Mail_Parser.txt`);
+                            resultScript = JSON.parse(JSON.stringify(str));
                             fs.writeFile(fileName, resultScript, function (err) {
                                 if (err) {
                                     return console.log(err);
@@ -150,14 +158,12 @@ export class UserManager {
 
                         }
                     }
-
-                    // console.log(subjects);
                     return true;
                 });
             });
         });
 
-        await this.sendEmail(content);
+        await this.sendEmail(content , fileName);
         return { msg: 'email successfull true' };
     }
 
